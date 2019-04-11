@@ -14,7 +14,17 @@ const SizeMixin = {
       const coord = this.get('coord');
       const xScale = this.getXScale();
       const dataArray = this.get('dataArray');
-      const count = xScale.values.length;
+      const values = xScale.values;
+      const hash = {};
+      const duplicateRemovalValues = [];
+      values.forEach(item => {
+        if (hash.hasOwnProperty(item)) {
+          return;
+        }
+        hash[item] = true;
+        duplicateRemovalValues.push(item);
+      });
+      const count = duplicateRemovalValues.length;
       const range = xScale.range;
       let normalizeSize = 1 / count;
       let widthRatio = 1;
